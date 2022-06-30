@@ -1,0 +1,5 @@
+myApp\Server\NetworkIO.class
+myApp\Server\Server.class
+myApp\Client\Client.class
+myApp\Server\ClientCookieHandler.class
+myApp\Server\getCookie.class

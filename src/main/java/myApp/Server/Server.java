@@ -23,15 +23,16 @@ public class Server {
 
         String serverPort = "8080";
         boolean stop = false ;
+        getCookie randomcCookie = new getCookie();
         
-        try {            ServerSocket server = new ServerSocket(Integer.parseInt(serverPort));
+        try {    
+            // Inititlising new server        
+            ServerSocket server = new ServerSocket(Integer.parseInt(serverPort));
 
             // Printing to confirm the server set up and waiting for connection
             System.out.printf("Cookie Server started at port %s \n", serverPort);
+
             while(!stop){
-            // Inititlising new server
-
-
             // Initialising new server socket
             Socket sock = server.accept();
             System.out.println("Client connected");
@@ -56,7 +57,7 @@ public class Server {
             // Output the string is read by bufferedReader
             if("get-cookie".equals(requestFromClient.toLowerCase().trim())){
                 System.out.println(requestFromClient);
-                dos.writeUTF("cookie-text> "+ getCookie());
+                dos.writeUTF("cookie-text> "+ randomcCookie.getRandomCookie());
             }else if(requestFromClient.equals("stop")){
                 stop = true;
             }else{
@@ -67,38 +68,13 @@ public class Server {
             os.close();
             sock.close();
             }
+
+            
         } catch (Exception e) {
             //TODO: handle exception
             e.printStackTrace();
         }
     }
 
-    public static String getCookie(){
-        String randomCookie ="";
-        File cookieFile = new File("D:/VisaWorkshop/Workshopwk1/workshop4/src/main/java/myApp/Server/cookielist.txt");
-        System.out.println("ENTER GETCOOKIE");
-        //Initialise a new scanner to read the file of cookielist
-        try{
-        Scanner sc = new Scanner(cookieFile);
-        //Initialise the new cookieList in order to put the cookies inside 
-        List<String> cookieList = new LinkedList<>();
-        //Create a loop so while there is something
-        while(sc.hasNextLine()){
-            cookieList.add(sc.nextLine());
-        }
-        //Initialising a new random object 
-        Random rand = new Random();
-        //Use the random object to generate a random number from 0 to the number n(which is the size of the list)(not included)
-        //then use the number as a index to get the corresponding cookie
-        randomCookie = cookieList.get(rand.nextInt(cookieList.size()));
-        sc.close();
-   
-        System.out.println(randomCookie);
-        
-     }catch(IOException e){
-        e.printStackTrace();
-    }
-    return randomCookie;
-    }
-
+    
 }
